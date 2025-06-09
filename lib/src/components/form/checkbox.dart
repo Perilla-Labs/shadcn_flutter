@@ -175,7 +175,7 @@ class _CheckboxState extends State<Checkbox>
     return Clickable(
       enabled: widget.onChanged != null,
       mouseCursor: enabled
-          ? const WidgetStatePropertyAll(SystemMouseCursors.click)
+          ? const WidgetStatePropertyAll(SystemMouseCursors.basic)
           : const WidgetStatePropertyAll(SystemMouseCursors.forbidden),
       onPressed: enabled ? _tap : null,
       enableFeedback: enabled,

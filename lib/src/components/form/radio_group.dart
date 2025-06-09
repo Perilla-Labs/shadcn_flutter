@@ -114,7 +114,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
       child: FocusableActionDetector(
         focusNode: _focusNode,
         mouseCursor: widget.enabled && groupData?.enabled == true
-            ? SystemMouseCursors.click
+            ? SystemMouseCursors.basic
             : SystemMouseCursors.forbidden,
         onShowFocusHighlight: (value) {
           if (value && widget.enabled && groupData?.enabled == true) {
@@ -325,7 +325,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
         focusNode: _focusNode,
         mouseCursor: widget.enabled && groupData?.enabled == true
             ? styleValue(
-                defaultValue: SystemMouseCursors.click,
+                defaultValue: SystemMouseCursors.basic,
                 themeValue: componentTheme?.enabledCursor)
             : styleValue(
                 defaultValue: SystemMouseCursors.forbidden,

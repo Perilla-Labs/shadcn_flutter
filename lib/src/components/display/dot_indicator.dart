@@ -54,7 +54,7 @@ class DotIndicator extends StatelessWidget {
         child: Clickable(
           behavior: HitTestBehavior.translucent,
           onPressed: onChanged != null ? () => onChanged!(i) : null,
-          mouseCursor: const WidgetStatePropertyAll(SystemMouseCursors.click),
+          mouseCursor: const WidgetStatePropertyAll(SystemMouseCursors.basic),
           child: Padding(
             padding: itemPadding,
             child: dotBuilder(context, i, i == index),

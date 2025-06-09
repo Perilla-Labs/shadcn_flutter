@@ -275,7 +275,7 @@ class _CommandItemState extends State<CommandItem> {
       child: FocusableActionDetector(
         autofocus: true,
         enabled: widget.onTap != null,
-        mouseCursor: SystemMouseCursors.click,
+        mouseCursor: SystemMouseCursors.basic,
         focusNode: _focusNode,
         onShowHoverHighlight: (value) {
           if (value && widget.onTap != null) {
