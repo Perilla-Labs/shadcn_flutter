@@ -259,8 +259,8 @@ class SelectItemButton<T> extends StatelessWidget {
       disableTransition: true,
       alignment: AlignmentDirectional.centerStart,
       onPressed: () {
-              data?.selectItem(value, !isSelected);
-            },
+        data?.selectItem(value, !isSelected);
+      },
       style: style.copyWith(
         padding: (context, states, value) => EdgeInsets.symmetric(
           vertical: 8 * scaling,
@@ -595,6 +595,7 @@ class SelectState<T> extends State<Select<T>>
           child: Button(
             enabled: enabled,
             disableHoverEffect: widget.disableHoverEffect,
+            disableFocusOutline: true,
             focusNode: _focusNode,
             style: (widget.filled
                     ? ButtonVariance.secondary
