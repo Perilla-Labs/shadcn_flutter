@@ -7,18 +7,17 @@ import 'package:flutter/cupertino.dart'
     show
         CupertinoSpellCheckSuggestionsToolbar,
         cupertinoDesktopTextSelectionHandleControls;
+import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/foundation.dart'
     show IterableProperty, defaultTargetPlatform;
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:shadcn_flutter/src/components/layout/focus_outline.dart';
 import 'package:shadcn_flutter/src/components/layout/hidden.dart';
 
 import '../../../shadcn_flutter.dart';
-
-import 'package:flutter/material.dart' as material;
-import 'package:flutter/cupertino.dart' as cupertino;
 
 /// Theme data for customizing [TextField] appearance.
 ///
@@ -565,6 +564,7 @@ mixin TextInput on Widget {
   String? get initialValue;
   String? get hintText;
   Border? get border;
+  bool get showBorderOnFocus;
   BorderRadiusGeometry? get borderRadius;
   bool? get filled;
   WidgetStatesController? get statesController;
@@ -757,6 +757,7 @@ class TextField extends StatefulWidget with TextInput {
     this.magnifierConfiguration,
     this.hintText,
     this.border,
+    this.showBorderOnFocus = true,
     this.borderRadius,
     this.filled,
     this.statesController,
@@ -994,6 +995,9 @@ class TextField extends StatefulWidget with TextInput {
 
   @override
   final Border? border;
+
+  @override
+  final bool showBorderOnFocus;
 
   @override
   final BorderRadiusGeometry? borderRadius;
@@ -1259,6 +1263,7 @@ class TextField extends StatefulWidget with TextInput {
     ValueGetter<EditableTextContextMenuBuilder?>? contextMenuBuilder,
     ValueGetter<String?>? hintText,
     ValueGetter<Border?>? border,
+    ValueGetter<bool>? showBorderOnFocus,
     ValueGetter<BorderRadiusGeometry?>? borderRadius,
     ValueGetter<bool?>? filled,
     ValueGetter<WidgetStatesController?>? statesController,
@@ -1381,6 +1386,9 @@ class TextField extends StatefulWidget with TextInput {
           : contextMenuBuilder(),
       hintText: hintText == null ? this.hintText : hintText(),
       border: border == null ? this.border : border(),
+      showBorderOnFocus: showBorderOnFocus == null
+          ? this.showBorderOnFocus
+          : showBorderOnFocus(),
       borderRadius: borderRadius == null ? this.borderRadius : borderRadius(),
       filled: filled == null ? this.filled : filled(),
       statesController:
@@ -2170,7 +2178,8 @@ class TextFieldState extends State<TextField>
     Widget textField = MouseRegion(
       cursor: enabled ? SystemMouseCursors.text : SystemMouseCursors.forbidden,
       child: FocusOutline(
-        focused: _effectiveFocusNode.hasFocus,
+        focused:
+            widget.showBorderOnFocus ? _effectiveFocusNode.hasFocus : false,
         borderRadius: effectiveDecoration.borderRadius,
         child: IconTheme.merge(
           data: theme.iconTheme.small.copyWith(
