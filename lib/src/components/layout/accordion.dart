@@ -340,6 +340,15 @@ class AccordionItem extends StatefulWidget {
   /// Only one item in an accordion should typically start expanded.
   final bool expanded;
 
+  /// Callback invoked when the expansion state should change.
+  ///
+  /// When provided, the item automatically integrates with its parent [Accordion]
+  /// to provide proper state management and mutual exclusion behavior.
+  ///
+  /// Called with the desired expansion state when the user interacts with expand
+  /// controls or uses keyboard shortcuts.
+  final void Function(bool expanded)? onExpandedChanged;
+
   /// Creates an [AccordionItem] with the specified trigger and content.
   ///
   /// Parameters:
@@ -368,6 +377,7 @@ class AccordionItem extends StatefulWidget {
     required this.trigger,
     required this.content,
     this.expanded = false,
+    this.onExpandedChanged,
   });
 
   @override
@@ -444,11 +454,13 @@ class _AccordionItemState extends State<AccordionItem>
   void _expand() {
     _controller.forward();
     _expanded.value = true;
+    widget.onExpandedChanged?.call(true);
   }
 
   void _collapse() {
     _controller.reverse();
     _expanded.value = false;
+    widget.onExpandedChanged?.call(false);
   }
 
   void _dispatchToggle() {
